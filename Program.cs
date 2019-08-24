@@ -27,7 +27,6 @@ namespace HomeWork_EPAM
             Console.WriteLine("Square is: " + rectangle.Square());
             Console.WriteLine("Perimeter is: " + rectangle.Perimeter());
             #endregion
-
             #region Circle
 
             Circle circle = new Circle();
@@ -38,7 +37,6 @@ namespace HomeWork_EPAM
             circle.CircleLenght();
             circle.CircleSquare();
             #endregion
-
             #region Complex Number
 
             Console.Write("Please, enter first real part: ");
@@ -68,6 +66,43 @@ namespace HomeWork_EPAM
 
             Square s = new Square();
             s.Draw();
+            #endregion
+            #region Collections
+            Console.WriteLine("\n------------------ Task 3 ------------------\n");
+            Console.WriteLine("Display name and age of each created person:\n");
+
+            var people = new List<Person>
+            {
+                new Person{Name = "Emma", Age = 18, PhoneNumbers = new List<string>() { "+ Kyivstar", "+ Life", "+ Vodafone" } },
+                new Person{Name = "Olivia", Age = 19, PhoneNumbers = new List<string>() { "+ Kyivstar", "+ Life", "+ Vodafone" } },
+                new Person{Name = "Ava", Age = 20, PhoneNumbers = new List<string>() { "+ Kyivstar", "+ Life", "+ Vodafone" } },
+                new Person{Name = "Isabella", Age = 21, PhoneNumbers = new List<string>() { "+ Kyivstar", "+ Life", "+ Vodafone" } },
+                new Person{Name = "Sophia", Age = 22, PhoneNumbers = new List<string>() { "+ Kyivstar", "+ Life", "+ Vodafone" } },
+                new Person{Name = "Charlotte", Age = 23, PhoneNumbers = new List<string>() { "+ Kyivstar", "+ Life", "+ Vodafone" } },
+            };
+
+            foreach (var person in people)
+            {
+                Console.WriteLine("Name: {0}, Age: {1}", person.Name, person.Age);
+            }
+
+            Console.WriteLine("\nPhone numbers of all created persons:\n");
+            people.AddRange(new List<Person>
+            {
+                new Person{Name = "Mia", Age = 24, PhoneNumbers = new List<string>() { "+ Kyivstar", "+ Life", "+ Vodafone" } },
+                new Person{Name = "Amelia", Age = 25, PhoneNumbers = new List<string>() { "+ Kyivstar", "+ Life", "+ Vodafone" } }
+            });
+
+            foreach (var person in people)
+            {
+                Console.WriteLine("Name: {0}", person.Name);
+
+                foreach (var number in person.PhoneNumbers)
+                {
+                    Console.WriteLine($"{number}");
+                }
+            }
+
             #endregion
             Console.ReadKey();
         }
@@ -226,6 +261,12 @@ namespace HomeWork_EPAM
             {
                 Console.WriteLine("Square class");
             }
+        }
+        class Person
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+            public IEnumerable<String> PhoneNumbers { get; set; }
         }
     }
 }
