@@ -103,6 +103,11 @@ namespace HomeWork_EPAM
                 }
             }
 
+            Console.WriteLine("\nList of randomly generated elements:\n");
+            RandomString random = new RandomString();
+            random.ElementsNumber();
+            random.DisplayPage();
+
             #endregion
             Console.ReadKey();
         }
@@ -267,6 +272,72 @@ namespace HomeWork_EPAM
             public string Name { get; set; }
             public int Age { get; set; }
             public IEnumerable<String> PhoneNumbers { get; set; }
+        }
+        class RandomString
+        {
+            public List<string> randomStr = new List<string>();
+
+            public void ElementsNumber()
+            {
+                StringBuilder builder = new StringBuilder();
+                Random random = new Random();
+
+                for (int n = 0; n < 101; n++)
+                {
+                    builder.Clear();
+                    for (int i = 0; i < 4; i++)
+                    {
+                        builder.Append(Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65))));
+                    }
+                    randomStr.Add(builder.ToString());
+                }
+
+                Console.WriteLine("Number of elements in the list: " + randomStr.Count);
+
+                HashSet<string> newString = new HashSet<string>(randomStr);
+                List<string> stringNoZ = new List<string>();
+
+                foreach (var s in newString)
+                {
+                    if (!s.StartsWith("Z"))
+                    {
+                        stringNoZ.Add(s);
+                    }
+                }
+
+                randomStr = stringNoZ;
+                randomStr.Sort();
+                randomStr.Reverse();
+
+                Console.WriteLine("Number of elements in the list after transformation: " + randomStr.Count);
+            }
+
+            public void DisplayPage()
+            {
+
+                Console.Write("Input page number: ");
+                bool pageCheck = int.TryParse(Console.ReadLine(), out int pageNumber);
+                if (!pageCheck)
+                {
+                    return;
+                }
+
+                const int itemsOnPage = 5;
+
+                int length = randomStr.Count / itemsOnPage;
+                if (pageNumber <= 0 || pageNumber > length)
+                {
+                    Console.WriteLine("Invalid input");
+                    return;
+                }
+
+                int element = (pageNumber - 1) * itemsOnPage;
+                for (; element < (pageNumber * itemsOnPage); element++)
+                {
+                    Console.WriteLine(randomStr[element]);
+                }
+
+            }
         }
     }
 }
